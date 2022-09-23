@@ -1,0 +1,70 @@
+<!-- Video Game Practice -->
+<html>
+<head>
+<script src='girlScout.js'></script>
+<title>Girl Scouts The Video Game</title>
+</head>
+<body>
+<div>
+<canvas id="myCanvas" style="border:1px solid #c3c3c3;">
+Your browser does not support the canvas element.
+</canvas>
+</div>
+<button onClick='moverUp()' type='button' id='up' width='900'><h1>&#8593</h1></button><div>
+<button onClick='moverLeft()' type='button' id='left'><h1>&#8592</h1></button><button onClick='moverRight()' type='button' id='right'><h1>&#8594</h1></button>
+<button onClick='moverDown()' type='button' id='down' width='900'><h1>&#8595</h1></button><div>
+</div>
+<script>
+document.getElementById('up').style.width=w;
+document.getElementById('right').style.width=w/2;
+document.getElementById('down').style.width=w;
+document.getElementById('left').style.width=w/2;
+var cc=document.getElementById('myCanvas');
+
+cc.width=w;
+cc.height=w/2;
+
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+function moverLeft(){
+moveLeft(ctx);
+}
+function moverRight(){
+moveRight(ctx);
+}
+function moverUp(){
+moveUp(ctx);
+}
+function moverDown(){
+moveDown(ctx);
+}
+
+
+document.addEventListener('keypress', function(e) {
+    var code = e.which || e.keyCode;
+    //console.log(code);
+    if (code == '119') {
+        // Up
+        moverUp();
+    }
+    else if (code == '115') {
+        // Down
+        moverDown();
+    }
+    else if (code == '97') {
+       // Left
+       moverLeft();
+    }
+    else if (code == '100') {
+       // Right
+       moverRight();
+    }
+})
+
+drawWorld(ctx);
+console.log(w/5);
+</script>
+</body>
+
+</html>

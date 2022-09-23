@@ -1,0 +1,60 @@
+<!-- hello world girl scouts -->
+<html>
+<head>
+<script src='girlScout.js'></script>
+<title>Hello World Girl Scouts</title>
+
+
+</head>
+<body>
+<div>
+  <img src="banner.gif"  style="float:left;width:100%;height:150px;">
+</div>
+
+<div>
+<div style='float:left;width:50%'>
+<img src="me_serious.png" style="width:80%;">
+</div>
+<div style='float:left;width:50%'>
+<h1>Hello I'm Dr. Rob!</h1>
+<p><h1>I love math and video games!!</h1></p>
+</div>
+</div>
+
+
+
+<!--Now the programming-->
+<script>
+alert('Hello Girl Scouts!');
+</script>
+
+
+<div>
+<canvas id="myCanvas" width="300" height="300"
+style="border:1px solid #c3c3c3;">
+Your browser does not support the canvas element.
+</canvas>
+</div>
+
+<script>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+/* ctx.fillStyle = "red";
+ctx.fillRect(0,0,150,75);
+eightBit(ctx,300,'red',0,0);
+eightBit(ctx,300,'black',1,1);
+eightBit(ctx,300,'black',1,0);
+*/
+
+drawGrass(ctx,300);
+mario(ctx,300,0,0);
+
+//drawTree(ctx,300,0,0);
+
+//bench(ctx,300,0,0);
+//grass(ctx,300 ,0,0);
+
+</script>
+
+</body>
+</html>
