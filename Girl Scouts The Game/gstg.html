@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>Girl Scouts: The Game</title>
+<script src='loadBag.js'></script>
+<script src='firstLevel.js'></script>
+<script src='objects.js'></script>
+<script src='preGame.js'></script>
+</head>
+
+<body>
+<div id='dummy' class='box'></div>
+<div>
+<div id='canvasHolder'>
+<canvas id="myCanvas">
+Your browser cannot run this game... Sorry!
+</canvas>
+</div>
+<div id='items'></div>
+</div>
+
+<script>
+var weight=0;
+//Grab the Board
+var cc=document.getElementById('myCanvas');
+var ctx = cc.getContext("2d");
+
+//Get Game Started
+function preGame(){
+const newDiv = document.getElementById("dummy");
+newDiv.innerHTML="<h1>Enter Scout's Weight:</h1><p><input type='text' id='myText' value='100'>lbs</p><button type='button' onclick='letsGo()'>Enter Weight</button>"
+
+}
+
+function letsGo(){
+var x = document.getElementById("myText").value;
+weight=parseFloat(x);
+startGame(ctx,cc);
+}
+preGame();
+//levelOne(ctx,cc);
+//loadBag(ctx,cc);
+</script>
+</body>
+</html>
