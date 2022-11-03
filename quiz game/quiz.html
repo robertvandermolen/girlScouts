@@ -1,0 +1,277 @@
+<html>
+	
+	<head>
+
+		
+    <meta charset="utf-8">
+    <title>Girl Scouts Block Busters</title>
+	
+
+		<script src='quiz.js'></script>
+		<script src='questions.js'></script>
+
+</script>
+		
+		
+<style>
+  body {
+    margin: 0;
+
+  }
+	
+			.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+  </head>
+
+<body>
+	
+	
+	<div id='bruce banner' align='center'> <p></p><br/></div>
+
+
+
+	<script>
+	
+	//buzzers: https://buzzin.live
+	
+	
+	// WINDOW SIZE DATA
+		var w=window.innerWidth;
+		var h=window.innerHeight;
+		
+		var poop;
+		var currentQuestion=0;
+		var randomYet=0;
+		function makeRandom(){
+		for (poop=0;poop<Questions.length;poop++){
+		usedQuestions[poop]=0;	
+		}
+		}
+		//document.write(usedQuestions);
+		
+		
+		
+		//document.write(w)
+		
+		
+		//SET UP SCREEN CONTROLS
+		var bannerDiv=document.getElementById('bruce banner');
+		var whichQuestions=0;
+		var questionsRawTxt='';
+		let customControl=document.createElement('div');
+		var userFile;
+		var userQuestions=[];
+		var tempQuestion=['','not a choice','not a choice','not a choice','not a choice',''];
+		
+		
+		//NAME LOGO (START LOADING THE LOGO)
+		var image=new Image();
+		image.src='croppedlogo.png';
+		
+		
+		// LOGO CONTROLS
+		var logo=document.createElement('div');
+		logo.innerHTML='<div align="center"> <p></p><br/>Welcome to a Girl Scout themed quiz game developed by Robert Vandermolen, PhD. Use the button above to start playing! </div><canvas Id="myCanvas"></canvas>';
+		let logobtnHolder=document.createElement('div');
+		var alBH=document.createAttribute('align');
+		alBH.value='center';
+		logobtnHolder.setAttributeNode(alBH);
+		var clBH=document.createAttribute('class');
+		clBH.value='row';
+		logobtnHolder.setAttributeNode(clBH);
+		var newGameBtn;
+		var moreInfoBtn;
+		var canvasL;
+		var widthL;
+		var heightL;
+		var ctxL;
+		
+		var newgameTheta='<input id="set up button" type="button" value="New Game">';
+		var moreinfoTheta='x';
+		var newtheta="<div class='column'>"+newgameTheta+"</div><div class='column'>"+moreinfoTheta+"</div>";
+		logobtnHolder.innerHTML=newtheta;
+		
+		
+		
+		// GAME BOARD CONTROLS
+		let gb=document.createElement('div');
+		gb.innerHTML='<canvas Id="gbCanvas"></canvas>';
+		/*var alGB=document.createAttribute('align');
+		alGB.value='center';
+		gb.setAttributeNode(alGB);*/
+		var canvasGB;
+		var widthGB;
+		var heightGB;
+		var ctxGB;
+		var s=(w/6)/1.5;
+		var sieze;
+		var tops;
+		var sideskip;
+		var downskip;
+		var elemLeft;
+		var elemTop;
+		var phiphi;
+
+		
+		// NEXT ROUND AND REDO BUTTON HOLDER
+		let btnHolder=document.createElement('div');
+		var albtnHolder=document.createAttribute('align');
+		albtnHolder.value='center';
+		btnHolder.setAttributeNode(albtnHolder);
+		var clbtnHolder=document.createAttribute('class');
+		clbtnHolder.value='row';
+		btnHolder.setAttributeNode(clbtnHolder);
+	
+		var redoBtn;
+		var nextBtn;
+		var theta;
+		var redoTheta;
+		var nextTheta;
+		redoTheta='<input id="redobutton" type="button" value="<< Redo Round">';
+		nextTheta='<input id="nextbutton" type="button" value="Next Round >>">';
+		theta="<div class='column'>"+redoTheta+"</div><div class='column'>"+nextTheta+"</div>";
+		btnHolder.innerHTML=theta;
+		
+		
+		//QUESTION CONTROLS
+		let qs=document.createElement('div');
+		var alQS=document.createAttribute('align');
+		alQS.value='center';
+		qs.setAttributeNode(alQS);
+		
+		
+		
+		
+		
+		//ANSWER CONTROLS
+		let as=document.createElement('div');
+		var alAS=document.createAttribute('class');
+		alAS.value='row';
+		as.setAttributeNode(alAS);
+		var yx='na';
+		var yy='na';
+		var ba;
+		var bb;
+		var bc;
+		var bd;
+		var ra;
+		var rb;
+		var rc;
+		var rd;
+		var redAnswerBlock;
+		var blueAnswerBlock;
+		var blocksx=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]];
+		var blocksy=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]];
+		var redBlocks=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+		var blueBlocks=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+		var blackBlocks=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+		var correctRound=0;
+		var an;
+		var redRound=0;
+		var blueRound=0;
+		var previousX='na';
+		var previousY='na';
+		var PreviousCorrect='na';
+		//document.write(tops);
+		
+		
+		
+		
+		//TEAM NAME ENTRY:
+		let dummies=document.createElement('div');
+		var teamNamesInner='<div><p></p> <strong> Choose Team Names:</strong><p></p></div><div>Red Team name: <input type="text" id="redname" value="FIRST TEAM NAME"><p></p> Blue Team name: <input type="text" id="bluename" value="SECOND TEAM NAME"></div><div><p></p><br/><strong> </strong><p></p> </div>';
+		
+		var questionBankInner='';
+		var dummiesInner=teamNamesInner+questionBankInner;
+		
+		let previewDiv=document.createElement('div');
+		var pal=document.createAttribute('align');
+		pal.value='center';
+		previewDiv.setAttributeNode(pal);
+		
+		var previewQuestionsInner='<div><p></p><br/><input type="button" value="preview questions" id="preview questions"></div>';
+		var actualPreviewInner='';
+		var prvBtn;
+		
+		let theBottom=document.createElement('div');
+		var bottomA=document.createAttribute('align');
+		bottomA.value='center';
+		theBottom.setAttributeNode(bottomA);
+		
+		var playbuttonInner='<div> <p></p><br/><input id="playbutton" type="button" value="Start Playing!"></div>';
+		
+		var chooseFileInner='<div><p></p><br/><input type="file" accept="text/plain" onchange="openFile(event)" id="user file"></div>';
+		
+		
+		theBottom.innerHTML=playbuttonInner;
+		
+		
+		dummies.innerHTML=dummiesInner;
+		var al=document.createAttribute('align');
+		al.value='center';
+		dummies.setAttributeNode(al);
+		var redna='';
+		var bluena='';
+		var btn;
+		
+		
+		
+		//BOARD FOR WHEN QUESTION IS DISPLAYED
+		let gbQhlder=document.createElement('div');
+		var clhlder=document.createAttribute('class');
+		clhlder.value='row';
+		gbQhlder.setAttributeNode(clhlder);
+		var theta;
+		var theta1="<div class='column' id='canvas col'><canvas Id='gb2Canvas'></canvas></div>";
+		var theta2="<div class='column' id='question col' align='center'></div>";
+		theta=theta1+theta2;
+		gbQhlder.innerHTML=theta;
+		
+		var questionCol;
+		
+		
+		var canvasGB2;
+		var widthGB2;
+		var heightGB2;
+		var ctxGB2;
+		var hh;
+		var tops2;
+		var sideskip2;
+		var downskip2;
+		
+		
+		
+		
+		
+		
+		
+		
+	
+		
+		
+	
+		makeLogo();
+		
+		
+	</script>
+	
+	
+	
+
+
+
+</body>
+	
+
+
+</html>
